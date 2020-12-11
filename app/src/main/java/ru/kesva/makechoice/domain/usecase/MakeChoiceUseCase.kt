@@ -1,4 +1,8 @@
 package ru.kesva.makechoice.domain.usecase
 
-class MakeChoiceUseCase {
+import javax.inject.Inject
+
+class MakeChoiceUseCase @Inject constructor(
+
+) {
 }

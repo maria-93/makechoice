@@ -1,4 +1,8 @@
 package ru.kesva.makechoice.domain.usecase
 
-class SaveCardToMemoryCacheUseCase {
+import javax.inject.Inject
+
+class SaveCardToMemoryCacheUseCase @Inject constructor(
+
+) {
 }
