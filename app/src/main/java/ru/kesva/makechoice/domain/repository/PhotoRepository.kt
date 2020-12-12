@@ -4,5 +4,4 @@ import ru.kesva.makechoice.domain.model.Card
 
 interface PhotoRepository {
  suspend fun getCard(query: String): Result<Card>
- fun getListOfCards(): List<Card>
 }

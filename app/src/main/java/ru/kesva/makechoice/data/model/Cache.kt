@@ -1,4 +1,5 @@
 package ru.kesva.makechoice.data.model
 
-class Cache {
-}
+import ru.kesva.makechoice.domain.model.Card
+
+data class Cache (val cardList: MutableList<Card>)

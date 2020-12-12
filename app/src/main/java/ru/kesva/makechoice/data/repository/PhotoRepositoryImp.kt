@@ -9,7 +9,7 @@ class PhotoRepositoryImp(
     private val api: CustomSearchGoogleApi,
     private val dispatcher: CoroutineDispatcher
 ) : BaseRepository(), PhotoRepository {
-    private val cardList: MutableList<Card> = mutableListOf()
+
 
     private val key = "AIzaSyDhhbudfasaj9Nirm9rmmrEu7jb0ep6lWI"
     private val cx = "3f8ce6301b45b1e05"
@@ -26,7 +26,5 @@ class PhotoRepositoryImp(
             Card(query, imageUri)
         }
 
-    override fun getListOfCards(): List<Card> {
-        return cardList
-    }
+
 }

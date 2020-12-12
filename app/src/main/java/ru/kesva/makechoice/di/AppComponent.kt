@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.kesva.makechoice.MakeChoiceApplication
+import ru.kesva.makechoice.data.model.Cache
 import ru.kesva.makechoice.di.modules.AppSubComponents
 import ru.kesva.makechoice.di.subcomponents.MainActivityComponent
 import ru.kesva.makechoice.di.subcomponents.MakeChoiceComponent
@@ -22,6 +23,6 @@ interface AppComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@ApplicationContext @BindsInstance context: Context): AppComponent
+        fun create(@ApplicationContext @BindsInstance context: Context, @BindsInstance cache: Cache): AppComponent
     }
 }
