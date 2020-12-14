@@ -1,14 +1,16 @@
 package ru.kesva.makechoice.di.subcomponents
 
 import dagger.Subcomponent
-import ru.kesva.makechoice.ui.WelcomeFragment
+import ru.kesva.makechoice.di.modules.ClickHandlersProvidesModule
+import ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapterClickHandler
+import ru.kesva.makechoice.ui.welcomefragment.WelcomeFragment
 
-@Subcomponent
+@Subcomponent(modules = [ClickHandlersProvidesModule::class])
 interface WelcomeComponent {
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(): WelcomeComponent
+        fun create(clickHandlersProvidesModule: ClickHandlersProvidesModule): WelcomeComponent
     }
 
     fun provideDependenciesFor(welcomeFragment: WelcomeFragment)

@@ -35,7 +35,7 @@ class ViewModelFactory @Inject constructor(
 }
 
 @Module
-internal abstract class ViewModelBuilder {
+internal abstract class ViewModelBuilderModule {
     @Binds
     internal abstract fun bindViewModelFactory(
         factory: ViewModelFactory
