@@ -1,7 +1,11 @@
 package ru.kesva.makechoice.ui.welcomefragment
 
+import android.content.Context
+import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import ru.kesva.makechoice.data.model.EditTextItem
 import ru.kesva.makechoice.databinding.LayoutForRvAddVariantBinding
@@ -14,7 +18,8 @@ class WelcomeAdapter @Inject constructor(
     val cardList: MutableList<EditTextItem> = mutableListOf()
 
     fun addNewEditText() {
-        cardList.add(EditTextItem())
+        val editTextItem = EditTextItem()
+        cardList.add(editTextItem)
         notifyDataSetChanged()
     }
 

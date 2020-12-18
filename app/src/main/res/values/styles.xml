@@ -1,11 +1,21 @@
 <resources>
-    <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundTint">#03A9F4</item>
+    </style>
+    
+    <style name="FabButtonTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+        
+    </style>
+
+    <style name="NextButtonTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@android:color/white</item>
     </style>
 
 </resources>

@@ -43,6 +43,8 @@ class WelcomeFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.adapter = adapter
         binding.welcomeAdapterClickHandler = welcomeAdapterClickHandler
+
+
     }
 
     override fun onCreateView(

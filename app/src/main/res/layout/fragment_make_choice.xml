@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:clipChildren="false"
-        android:background="#979698">
+        android:background="#ADACAE">
 
         <ru.kesva.makechoice.ui.customlayout.AnimatedGridLayout
             android:id="@+id/animatedGridLayout"
@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:text="@string/make_choice"
             android:layout_marginTop="4dp"
+            android:theme="@style/NextButtonTheme"
             android:onClick="@{() -> viewModel.startAnimation(animatedGridLayout, startAnimationButton)}"
             app:layout_constraintEnd_toEndOf="@+id/animatedGridLayout"
             app:layout_constraintStart_toStartOf="@+id/animatedGridLayout"
