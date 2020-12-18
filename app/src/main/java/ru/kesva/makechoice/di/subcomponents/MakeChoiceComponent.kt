@@ -1,7 +1,7 @@
 package ru.kesva.makechoice.di.subcomponents
 
 import dagger.Subcomponent
-import ru.kesva.makechoice.ui.MakeChoiceFragment
+import ru.kesva.makechoice.ui.makechoicefragment.MakeChoiceFragment
 
 @Subcomponent
 interface MakeChoiceComponent {

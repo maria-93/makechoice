@@ -30,4 +30,5 @@ class MainActivity : AppCompatActivity() {
         component.provideDependenciesFor(this)
         viewModel = ViewModelProvider(this, factory).get(SharedViewModel::class.java)
     }
+
 }

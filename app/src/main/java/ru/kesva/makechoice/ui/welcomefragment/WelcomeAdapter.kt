@@ -25,6 +25,10 @@ class WelcomeAdapter @Inject constructor(
         }
     }
 
+    fun removeAllEditTexts() {
+        cardList.clear()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WelcomeViewHolder =
         WelcomeViewHolder(
             LayoutForRvAddVariantBinding.inflate(
@@ -34,23 +38,24 @@ class WelcomeAdapter @Inject constructor(
             )
         )
 
-
     override fun onBindViewHolder(holder: WelcomeViewHolder, position: Int) {
         holder.bind(position, welcomeAdapterClickHandler)
     }
 
     override fun getItemCount(): Int = cardList.size
 
+
     inner class WelcomeViewHolder(private val binding: LayoutForRvAddVariantBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(
-                position: Int,
-                welcomeAdapterClickHandler: WelcomeAdapterClickHandler
-            ) {
-                binding.editTextItem = cardList[position]
-                binding.welcomeAdapterClickHandler = welcomeAdapterClickHandler
-            }
+        fun bind(
+            position: Int,
+            welcomeAdapterClickHandler: WelcomeAdapterClickHandler
+        ) {
+            binding.editTextItem = cardList[position]
+            binding.welcomeAdapterClickHandler = welcomeAdapterClickHandler
+        }
+
     }
 }
 
