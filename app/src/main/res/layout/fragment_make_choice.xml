@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:text="@string/make_choice"
             android:layout_marginTop="4dp"
+            android:onClick="@{() -> viewModel.startAnimation(animatedGridLayout, startAnimationButton)}"
             app:layout_constraintEnd_toEndOf="@+id/animatedGridLayout"
             app:layout_constraintStart_toStartOf="@+id/animatedGridLayout"
             app:layout_constraintTop_toBottomOf="@+id/animatedGridLayout" />

@@ -48,6 +48,10 @@ class SharedViewModel @Inject constructor(
         return cache.cardList
     }
 
+    fun startAnimation(animatedGridLayout: AnimatedGridLayout, startAnimationButton: Button) {
+        animatedGridLayout.startViewAnimation(0)
+        startAnimationButton.visibility = View.GONE
+    }
 
     private fun <T> handleError(result: Result<T>) {
         when (result) {

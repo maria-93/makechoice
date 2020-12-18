@@ -1,5 +1,9 @@
 package ru.kesva.makechoice.ui.customlayout
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.content.res.Resources
 import android.util.AttributeSet
@@ -7,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.GridLayout
 import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
@@ -176,6 +181,113 @@ class AnimatedGridLayout : GridLayout {
         return dp * Resources.getSystem().displayMetrics.density
     }
 
+    var round = 1
+    var cardIndex = 0
+
+    fun startViewAnimation(index: Int) {
+        Log.d("asdf", "startViewAnimation: cardIndex=$cardIndex round=$round")
+
+
+        val childView = getChildAt(index) as View
+        Log.d("asdf", "startViewAnimation before setUpAnimators: cardIndex increased to=$cardIndex")
+        setUpAnimatorsForView(childView)
+
+    }
+
+    private fun setUpAnimatorsForView(view: View) {
+        Log.d("asdf", "setUpAnimatorForView: ")
+        // 1. создать анимацию поднятия
+        val animatorUp = createCardAnimationUp(view)
+
+        // 3. создать анимацию опускания
+        val animatorDown = createCardAnimationDown(view)
+
+        // 2. прилепить на ее окончание листенер с вызовом рекурсивного метода startViewAnimation
+        val shouldStop = round == 10 && cardIndex == result
+        Log.d("asdf", "setUpAnimatorsForView: after shouldStop==true $cardIndex")
+        if (cardIndex >= cardList.size - 1) {
+            round++
+            cardIndex = -1
+            if (round < 7 && oneAnimationDuration > 200) {
+                oneAnimationDuration -= 100L
+            }
+            if (round >= 7) {
+                oneAnimationDuration += 100L
+            }
+        }
+        cardIndex++
+        if (!shouldStop) {
+            Log.d(
+                "asdf",
+                "before starting animatorDown in animatorUpListener: cardIndex=$cardIndex result=$result"
+            )
+            animatorUp.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    Log.d("asdf", "onAnimationEnd: before startViewAnimation round $round")
+                    startViewAnimation(cardIndex)
+                    animatorDown.start()
+                }
+            })
+        } else {
+            showWinningCard(view)
+        }
+        animatorUp.start()
+    }
+
+    private fun showWinningCard(view: View) {
+        val container = view.parent as ViewGroup
+        val parentCenterWidth = (container.width / 2).toFloat()
+        val parentCenterHeight = (container.height / 2).toFloat()
+        val childCenterHeight = (view.height / 2).toFloat()
+        val childCenterWidth = (view.width / 2).toFloat()
+
+        val x = PropertyValuesHolder.ofFloat(View.X, parentCenterWidth - childCenterWidth)
+        val y = PropertyValuesHolder.ofFloat(View.Y, parentCenterHeight - childCenterHeight)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(view, x, y)
+        animator.duration = 1000
+        animator.startDelay = 1000
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                for (item in childViewList) {
+                    if (item != view) {
+                        val itemAnimator = ObjectAnimator.ofFloat(item, View.ALPHA, 0f)
+                        itemAnimator.duration = 800
+                        itemAnimator.start()
+                    } else {
+                        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.6f)
+                        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.6f)
+                        val viewAnimator =
+                            ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY)
+                        viewAnimator.duration = 800
+                        viewAnimator.start()
+                    }
+                }
+            }
+        })
+        animator.start()
+    }
+
+
+    private fun createCardAnimationUp(view: View): Animator {
+        val scaleXUp = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.4f)
+        val scaleYUp = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.4f)
+        val scaleZUp = PropertyValuesHolder.ofFloat(View.TRANSLATION_Z, 30f)
+        val animatorUp = ObjectAnimator.ofPropertyValuesHolder(view, scaleXUp, scaleYUp, scaleZUp)
+        animatorUp.duration = oneAnimationDuration
+        animatorUp.interpolator = AccelerateDecelerateInterpolator()
+        return animatorUp
+    }
+
+    private fun createCardAnimationDown(view: View): Animator {
+        val scaleXDown = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.0f)
+        val scaleYDown = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.0f)
+        val scaleZDown = PropertyValuesHolder.ofFloat(View.TRANSLATION_Z, -30f)
+        val animatorDown =
+            ObjectAnimator.ofPropertyValuesHolder(view, scaleXDown, scaleYDown, scaleZDown)
+        animatorDown.duration = oneAnimationDuration
+        animatorDown.interpolator = AccelerateDecelerateInterpolator()
+        return animatorDown
+    }
 
 }
 
