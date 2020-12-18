@@ -31,35 +31,35 @@
 
 
             <include
-                layout="@layout/layout_for_rv_card"
+                layout="@layout/layout_for_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1" />
 
             <include
-                layout="@layout/layout_for_rv_card"
+                layout="@layout/layout_for_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1" />
 
             <include
-                layout="@layout/layout_for_rv_card"
+                layout="@layout/layout_for_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1" />
 
             <include
-                layout="@layout/layout_for_rv_card"
+                layout="@layout/layout_for_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1" />
 
             <include
-                layout="@layout/layout_for_rv_card"
+                layout="@layout/layout_for_card"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"

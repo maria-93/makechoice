@@ -1,9 +1,5 @@
 package ru.kesva.makechoice.ui.customlayout
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.content.res.Resources
 import android.util.AttributeSet
@@ -11,14 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.GridLayout
 import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
 import ru.kesva.makechoice.R
 import ru.kesva.makechoice.domain.model.Card
 import kotlin.random.Random
-import kotlinx.android.synthetic.main.layout_for_rv_card.view.*
+import kotlinx.android.synthetic.main.layout_for_card.view.*
 
 class AnimatedGridLayout : GridLayout {
 
@@ -89,7 +84,7 @@ class AnimatedGridLayout : GridLayout {
     private fun inflateChild(card: Card): View {
         Log.d("Test", "inflateChild: ")
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.layout_for_rv_card, this, false)
+        val view = inflater.inflate(R.layout.layout_for_card, this, false)
         val rowSpec = spec(UNDEFINED, 1f)
         val columnSpec = spec(UNDEFINED, 1f)
         val params = LayoutParams(rowSpec, columnSpec)
