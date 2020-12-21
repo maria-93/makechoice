@@ -28,74 +28,77 @@
 
             <TextView
                 android:id="@+id/tv_welcome"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="#FAEBEE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="#FDECF0"
                 android:text="@string/welcome_text"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_add_variants"
-                app:layout_constraintTop_toBottomOf="@+id/tv_welcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/add_variants"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
 
             <Button
                 android:id="@+id/button_farther"
-                app:layout_constraintLeft_toLeftOf="@id/fab_delete_card"
-                app:layout_constraintRight_toRightOf="@id/fab_add_card"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="94dp"
-                android:theme="@style/NextButtonTheme"
                 android:onClick="@{() -> welcomeAdapterClickHandler.nextButtonClicked(recyclerView)}"
-                android:text="@string/button_farther" />
+                android:text="@string/button_farther"
+                android:theme="@style/NextButtonTheme"
+                app:layout_constraintLeft_toLeftOf="@id/fab_delete_card"
+                app:layout_constraintRight_toRightOf="@id/fab_add_card"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tv_add_variants"
                 android:layout_width="match_parent"
-                android:layout_height="0dp" />
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:setDismissHelper="@{adapter.action}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_variants" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_add_card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_view"
-                app:maxImageSize="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:onClick="@{() -> adapter.addNewEditText()}"
+                android:src="@drawable/add_for_fab"
                 android:theme="@style/FabButtonTheme"
-                android:src="@drawable/add_for_fab" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view"
+                app:maxImageSize="30dp" />
+
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_delete_card"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view"
-                app:maxImageSize="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:onClick="@{() -> adapter.removeEditText()}"
+                android:visibility="invisible"
+                android:src="@drawable/delete_for_fab"
                 android:theme="@style/FabButtonTheme"
-                android:src="@drawable/delete_for_fab" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view"
+                app:maxImageSize="30dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

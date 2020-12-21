@@ -17,14 +17,44 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="4dp">
+
+        <FrameLayout
+            android:id="@+id/removableView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="@id/textField"
+            app:layout_constraintStart_toStartOf="@id/textField"
+            app:layout_constraintTop_toTopOf="@id/textField"
+            app:layout_constraintBottom_toBottomOf="@id/textField">
+
+            <ImageView
+                android:id="@+id/deleteIconRight"
+                android:src="@drawable/delete_element"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_gravity="center_vertical|end"/>
+
+            <ImageView
+                android:id="@+id/deleteIconLeft"
+                android:src="@drawable/delete_element"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center_vertical|start"/>
+
+            </FrameLayout>
 
         <EditText
-            android:id="@+id/et_query"
+            android:id="@+id/textField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="12"
+            android:padding="6dp"
             android:hint="@string/hint"
+            android:background="#FDECF0"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:maxLength="200"

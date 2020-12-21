@@ -1,11 +1,7 @@
 package ru.kesva.makechoice.ui.welcomefragment
 
-import android.content.Context
-import android.view.KeyEvent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import ru.kesva.makechoice.data.model.EditTextItem
 import ru.kesva.makechoice.databinding.LayoutForRvAddVariantBinding
@@ -23,9 +19,9 @@ class WelcomeAdapter @Inject constructor(
         notifyDataSetChanged()
     }
 
-    fun removeEditText() {
+    val action: (RecyclerView.ViewHolder, Int) -> Unit = { viewHolder, _ ->
         if (cardList.isNotEmpty()) {
-            cardList.removeLast()
+            cardList.removeAt(viewHolder.adapterPosition)
             notifyDataSetChanged()
         }
     }
