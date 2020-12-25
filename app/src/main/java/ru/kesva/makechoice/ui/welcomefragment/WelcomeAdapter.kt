@@ -8,23 +8,9 @@ import ru.kesva.makechoice.databinding.LayoutForRvAddVariantBinding
 import javax.inject.Inject
 
 class WelcomeAdapter @Inject constructor(
-    private val welcomeAdapterClickHandler: WelcomeAdapterClickHandler
 ) : RecyclerView.Adapter<WelcomeAdapter.WelcomeViewHolder>() {
 
     val cardList: MutableList<EditTextItem> = mutableListOf()
-
-    fun addNewEditText() {
-        val editTextItem = EditTextItem()
-        cardList.add(editTextItem)
-        notifyDataSetChanged()
-    }
-
-    val action: (RecyclerView.ViewHolder, Int) -> Unit = { viewHolder, _ ->
-        if (cardList.isNotEmpty()) {
-            cardList.removeAt(viewHolder.adapterPosition)
-            notifyDataSetChanged()
-        }
-    }
 
     fun removeAllEditTexts() {
         cardList.clear()
@@ -40,26 +26,12 @@ class WelcomeAdapter @Inject constructor(
         )
 
     override fun onBindViewHolder(holder: WelcomeViewHolder, position: Int) {
-        holder.bind(position, welcomeAdapterClickHandler)
+        holder.binding.editTextItem = cardList[position]
     }
 
     override fun getItemCount(): Int = cardList.size
 
-
-    inner class WelcomeViewHolder(private val binding: LayoutForRvAddVariantBinding) :
+    inner class WelcomeViewHolder(val binding: LayoutForRvAddVariantBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(
-            position: Int,
-            welcomeAdapterClickHandler: WelcomeAdapterClickHandler
-        ) {
-            binding.editTextItem = cardList[position]
-            binding.welcomeAdapterClickHandler = welcomeAdapterClickHandler
-        }
-
     }
-}
-
-interface WelcomeAdapterClickHandler {
-    fun nextButtonClicked(recyclerView: RecyclerView)
 }

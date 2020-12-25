@@ -14,7 +14,7 @@ import ru.kesva.makechoice.domain.model.Card
 import ru.kesva.makechoice.ui.customlayout.AnimatedGridLayout
 
 
-@BindingAdapter("loadImage")
+@BindingAdapter("app:loadImage")
 fun loadImage(imageView: ImageView, imageUri: String) {
     Log.d("asdf", "loadImage: $imageUri")
     Glide
@@ -34,6 +34,7 @@ fun retrieveCardListFromCache(animatedGridLayout: AnimatedGridLayout, list: List
 fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit) {
     val dismissHelper = ItemTouchHelper(object :
         ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START or ItemTouchHelper.END) {
+
         override fun isLongPressDragEnabled(): Boolean = false
 
         override fun onMove(
@@ -94,3 +95,5 @@ fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit
     })
     dismissHelper.attachToRecyclerView(this)
 }
+
+

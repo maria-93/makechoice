@@ -3,14 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="card"
-            type="ru.kesva.makechoice.domain.model.Card" />
-    </data>
-
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/material_card"
         android:layout_width="0dp"

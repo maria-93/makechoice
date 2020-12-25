@@ -9,9 +9,6 @@
             name="editTextItem"
             type="ru.kesva.makechoice.data.model.EditTextItem" />
 
-        <variable
-            name="welcomeAdapterClickHandler"
-            type="ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapterClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

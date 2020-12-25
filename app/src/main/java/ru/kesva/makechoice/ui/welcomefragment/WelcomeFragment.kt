@@ -8,12 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import ru.kesva.makechoice.MainActivity
 import ru.kesva.makechoice.MakeChoiceApplication
 import ru.kesva.makechoice.R
 import ru.kesva.makechoice.databinding.FragmentWelcomeBinding
 import ru.kesva.makechoice.di.ViewModelFactory
-import ru.kesva.makechoice.di.modules.ClickHandlersProvidesModule
 import ru.kesva.makechoice.di.subcomponents.WelcomeComponent
 import ru.kesva.makechoice.extensions.getViewModel
 import ru.kesva.makechoice.ui.viewmodel.SharedViewModel
@@ -26,22 +24,26 @@ class WelcomeFragment : Fragment() {
     private lateinit var viewModel: SharedViewModel
 
     @Inject
-    lateinit var welcomeAdapterClickHandler: WelcomeAdapterClickHandler
-
-    @Inject
-    lateinit var adapter: WelcomeAdapter
-
-    @Inject
     lateinit var factory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectDependencies()
         binding = FragmentWelcomeBinding.inflate(LayoutInflater.from(parentFragment?.context))
-        binding.recyclerView.adapter = adapter
-        binding.adapter = adapter
-        binding.welcomeAdapterClickHandler = welcomeAdapterClickHandler
+        binding.viewModel = viewModel
+        binding.fabAddCard.setOnClickListener {
+            viewModel.addButtonClicked(binding.recyclerView, requireActivity())
+        }
     }
+
+    private fun injectDependencies() {
+        component =
+            (requireContext().applicationContext as MakeChoiceApplication).appComponent.welcomeComponent()
+                .create()
+        component.provideDependenciesFor(this)
+        viewModel = getViewModel(factory, requireActivity())
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,15 +75,5 @@ class WelcomeFragment : Fragment() {
                 }
             })
         }
-    }
-
-    private fun injectDependencies() {
-        component =
-            (requireContext().applicationContext as MakeChoiceApplication).appComponent.welcomeComponent()
-                .create(
-                    ClickHandlersProvidesModule(requireActivity() as MainActivity)
-                )
-        component.provideDependenciesFor(this)
-        viewModel = getViewModel(factory, requireActivity())
     }
 }

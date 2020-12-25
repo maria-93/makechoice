@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-
         <variable
             name="card"
-            type="ru.kesva.makechoice.domain.model.Card" />
+            type="ru.kesva.makechoice.domain.model.Card"/>
 
         <variable
-            name="welcomeAdapterClickHandler"
-            type="ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapterClickHandler" />
-
-        <variable
-            name="adapter"
-            type="ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapter" />
+            name="viewModel"
+            type="ru.kesva.makechoice.ui.viewmodel.SharedViewModel"/>
     </data>
 
     <ScrollView
@@ -24,7 +19,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
 
             <TextView
                 android:id="@+id/tv_welcome"
@@ -56,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="94dp"
-                android:onClick="@{() -> welcomeAdapterClickHandler.nextButtonClicked(recyclerView)}"
+                android:onClick="@{() -> viewModel.nextButtonClicked()}"
                 android:text="@string/button_farther"
                 android:theme="@style/NextButtonTheme"
                 app:layout_constraintLeft_toLeftOf="@id/fab_delete_card"
@@ -68,9 +62,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
-                app:setDismissHelper="@{adapter.action}"
+                app:adapter="@{viewModel.adapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tv_add_variants" />
+                app:layout_constraintTop_toBottomOf="@id/tv_add_variants"
+                app:setDismissHelper="@{viewModel.action}"
+                tools:layout_editor_absoluteX="0dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_add_card"
@@ -78,7 +74,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:onClick="@{() -> adapter.addNewEditText()}"
                 android:src="@drawable/add_for_fab"
                 android:theme="@style/FabButtonTheme"
                 app:layout_constraintEnd_toEndOf="parent"

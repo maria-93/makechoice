@@ -15,3 +15,4 @@ inline fun <reified T: ViewModel> Fragment.getViewModel(
 inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(factory: ViewModelProvider.Factory): T {
     return ViewModelProvider(this, factory)[T::class.java]
 }
+
