@@ -31,9 +31,6 @@ class WelcomeFragment : Fragment() {
         injectDependencies()
         binding = FragmentWelcomeBinding.inflate(LayoutInflater.from(parentFragment?.context))
         binding.viewModel = viewModel
-        binding.fabAddCard.setOnClickListener {
-            viewModel.addButtonClicked(binding.recyclerView, requireActivity())
-        }
     }
 
     private fun injectDependencies() {

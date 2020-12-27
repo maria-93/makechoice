@@ -6,12 +6,20 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.kesva.makechoice.R
+import ru.kesva.makechoice.data.model.EditTextItem
 import ru.kesva.makechoice.domain.model.Card
+import ru.kesva.makechoice.extensions.runWhenReady
+import ru.kesva.makechoice.extensions.showKeyboard
 import ru.kesva.makechoice.ui.customlayout.AnimatedGridLayout
+import ru.kesva.makechoice.ui.viewmodel.SharedViewModel
+import ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapter
+import ru.kesva.makechoice.ui.welcomefragment.WelcomeFragment
 
 
 @BindingAdapter("app:loadImage")
@@ -95,5 +103,23 @@ fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit
     })
     dismissHelper.attachToRecyclerView(this)
 }
+
+@BindingAdapter("app:recyclerView", "app:viewModel")
+fun FloatingActionButton.bindOnFabClickAction(recyclerView: RecyclerView, viewModel: SharedViewModel) {
+    setOnClickListener {
+        recyclerView.runWhenReady {
+            val holder = recyclerView.findViewHolderForAdapterPosition(
+                viewModel.adapter.itemCount - 1
+            ) as WelcomeAdapter.WelcomeViewHolder
+            holder.binding.textField.requestFocus()
+            val activity = findFragment<WelcomeFragment>().requireActivity()
+            activity.showKeyboard()
+        }
+        val editTextItem = EditTextItem()
+        viewModel.adapter.cardList.add(editTextItem)
+        viewModel.adapter.notifyItemInserted(viewModel.adapter.cardList.lastIndex)
+    }
+}
+
 
 

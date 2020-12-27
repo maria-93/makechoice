@@ -51,7 +51,7 @@
             android:ems="12"
             android:padding="6dp"
             android:hint="@string/hint"
-            android:background="#FDECF0"
+            android:background="#FDF0F3"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:maxLength="200"

@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_makeChoiceFragment"
-            app:destination="@id/makeChoiceFragment" />
+            app:destination="@id/makeChoiceFragment"
+            app:enterAnim="@anim/slide_in_right_animation"
+            app:exitAnim="@anim/slide_out_left_animation"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/welcomeFragment" />
     </fragment>
 
     <fragment

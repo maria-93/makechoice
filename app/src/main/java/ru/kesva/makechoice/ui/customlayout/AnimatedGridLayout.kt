@@ -60,11 +60,11 @@ class AnimatedGridLayout : GridLayout {
             throw IllegalArgumentException("The list size should be less than 9")
         }
         _cardList = list
-        result = chooseCard()
+        result = getWinningCard()
         refresh()
     }
 
-    fun chooseCard(): Int {
+    private fun getWinningCard(): Int {
         return Random.nextInt(0, cardList.size)
     }
 
