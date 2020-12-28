@@ -3,6 +3,7 @@ package ru.kesva.makechoice.ui.viewmodel
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,11 +36,11 @@ class SharedViewModel @Inject constructor(
     }
 
     fun nextButtonClicked(fartherButton: Button, progressBar: ProgressBar) {
-        if (adapter.cardList.isNotEmpty()) {
+        val queries = adapter.cardList.map { it.query.get()!! }
+        if (!adapter.cardList.isNullOrEmpty()) {
             fartherButton.visibility = View.GONE
             progressBar.visibility = ProgressBar.VISIBLE
         }
-        val queries = adapter.cardList.map { it.query.get()!! }
         viewModelScope.launch {
             queries.forEach { query ->
                 val result = saveCardToMemoryCacheUseCase.fetchData(query)
@@ -66,12 +67,14 @@ class SharedViewModel @Inject constructor(
         return cache.cardList
     }
 
+    fun clearCardListFromCache() {
+        cache.cardList.clear()
+    }
+
     fun startAnimation(animatedGridLayout: AnimatedGridLayout, startAnimationButton: Button) {
         animatedGridLayout.startViewAnimation(0)
         startAnimationButton.visibility = View.GONE
     }
-
-
 
 
 }
