@@ -8,7 +8,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import ru.kesva.makechoice.MakeChoiceApplication
 import ru.kesva.makechoice.R
@@ -37,7 +36,6 @@ class WelcomeFragment : Fragment() {
         listener =
             NavController.OnDestinationChangedListener { controller, destination, arguments ->
                 if (controller.graph.startDestination == controller.currentDestination?.id) {
-                    //viewModel.adapter.removeAllEditTexts()
                     viewModel.clearCardListFromCache()
                     binding.buttonFarther.visibility = View.VISIBLE
                 }

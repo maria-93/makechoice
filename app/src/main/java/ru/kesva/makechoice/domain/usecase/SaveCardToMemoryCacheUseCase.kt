@@ -15,8 +15,6 @@ class SaveCardToMemoryCacheUseCase @Inject constructor(
         if (result is Result.Success) {
             val card = result.value
             cache.cardList.add(card)
-            Log.d("Test", "fetchData: размер листа в кэше ${cache.cardList.size}")
-            Log.d("Test", "fetchData: запрос был: ${cache.cardList[0].query} ури: ${cache.cardList[0].uri}")
         }
         return result
     }
