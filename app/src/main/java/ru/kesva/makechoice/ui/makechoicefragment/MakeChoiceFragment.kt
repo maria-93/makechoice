@@ -4,11 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.GridLayoutManager
 import ru.kesva.makechoice.MakeChoiceApplication
 import ru.kesva.makechoice.databinding.FragmentMakeChoiceBinding
 import ru.kesva.makechoice.di.ViewModelFactory
@@ -30,6 +26,7 @@ class MakeChoiceFragment : Fragment() {
         injectDependencies()
         binding = FragmentMakeChoiceBinding.inflate(LayoutInflater.from(parentFragment?.context))
         binding.viewModel = viewModel
+        binding.isStartAnimationButtonVisible = viewModel.isStartAnimationButtonVisible
     }
 
     private fun injectDependencies() {
@@ -47,8 +44,6 @@ class MakeChoiceFragment : Fragment() {
     ): View {
         return binding.root
     }
-
-
 
 
 }

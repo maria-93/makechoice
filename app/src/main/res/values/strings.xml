@@ -5,4 +5,7 @@
     <string name="add_variants">Добавь свои варианты \n (не больше 9):</string>
     <string name="hint">Вариант</string>
     <string name="make_choice">Сделать выбор</string>
+    <string name="toast_please_add_your_variants">Пожалуйста, добавь свои варианты</string>
+    <string name="toast_variant_deleted">Вариант удален</string>
+    <string name="toast_you_can_not_add_more_than_nine_elements">Ты можешь добавить не больше 9 элементов</string>
 </resources>

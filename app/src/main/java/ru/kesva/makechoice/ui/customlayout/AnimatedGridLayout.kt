@@ -15,10 +15,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.GridLayout
 import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.layout_for_card.view.*
 import ru.kesva.makechoice.R
 import ru.kesva.makechoice.domain.model.Card
 import kotlin.random.Random
-import kotlinx.android.synthetic.main.layout_for_card.view.*
 
 class AnimatedGridLayout : GridLayout {
 
@@ -74,7 +74,6 @@ class AnimatedGridLayout : GridLayout {
         createChildren()
         calculateGrid()
         centerLastChildrenSizeIfNeeded()
-        setPaddingIfCardListTooSmall()
     }
 
     private fun createChildren() {
@@ -161,22 +160,6 @@ class AnimatedGridLayout : GridLayout {
         }
     }
 
-    private fun setPaddingIfCardListTooSmall() {
-        val isSmall = cardList.size == 2 || cardList.size == 3 || cardList.size == 4
-        if (isSmall) {
-            Log.d("padd", "setPaddingIfCardListTooSmall: ${cardList.size}")
-            val container = parent as ViewGroup
-            container.setPadding(
-                dpToPx(8).toInt(),
-                dpToPx(42).toInt(),
-                dpToPx(8).toInt(),
-                dpToPx(8).toInt()
-            )
-        }
-
-    }
-
-
     private fun dpToPx(dp: Int): Float {
         return dp * Resources.getSystem().displayMetrics.density
     }
@@ -186,8 +169,6 @@ class AnimatedGridLayout : GridLayout {
 
     fun startViewAnimation(index: Int) {
         Log.d("asdf", "startViewAnimation: cardIndex=$cardIndex round=$round")
-
-
         val childView = getChildAt(index) as View
         Log.d("asdf", "startViewAnimation before setUpAnimators: cardIndex increased to=$cardIndex")
         setUpAnimatorsForView(childView)
@@ -266,7 +247,6 @@ class AnimatedGridLayout : GridLayout {
         })
         animator.start()
     }
-
 
     private fun createCardAnimationUp(view: View): Animator {
         val scaleXUp = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.4f)

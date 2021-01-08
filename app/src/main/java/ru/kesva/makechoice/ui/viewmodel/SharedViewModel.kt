@@ -1,9 +1,6 @@
 package ru.kesva.makechoice.ui.viewmodel
 
-import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +23,10 @@ class SharedViewModel @Inject constructor(
     private val _nextButtonClicked: MutableLiveData<Event<Unit>> = MutableLiveData()
     val nextButtonClicked: LiveData<Event<Unit>> = _nextButtonClicked
 
+    val isNextButtonVisible = ObservableBoolean()
+    val isProgressBarVisible = ObservableBoolean(false)
+    val isStartAnimationButtonVisible = ObservableBoolean()
+
     val adapter = WelcomeAdapter()
 
     val action: (RecyclerView.ViewHolder, Int) -> Unit = { viewHolder, _ ->
@@ -35,11 +36,11 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun nextButtonClicked(fartherButton: Button, progressBar: ProgressBar) {
+    fun nextButtonClicked() {
         val queries = adapter.cardList.map { it.query.get()!! }
         if (!adapter.cardList.isNullOrEmpty()) {
-            fartherButton.visibility = View.GONE
-            progressBar.visibility = ProgressBar.VISIBLE
+            isNextButtonVisible.set(false)
+            isProgressBarVisible.set(true)
         }
         viewModelScope.launch {
             queries.forEach { query ->
@@ -49,7 +50,7 @@ class SharedViewModel @Inject constructor(
                 }
             }
         }.invokeOnCompletion {
-            progressBar.visibility = ProgressBar.INVISIBLE
+            isProgressBarVisible.set(false)
             _nextButtonClicked.value = Event(Unit)
         }
     }
@@ -60,6 +61,7 @@ class SharedViewModel @Inject constructor(
             }
             is Result.HttpError -> {
             }
+            else -> Result.UndefinedError
         }
     }
 
@@ -71,9 +73,9 @@ class SharedViewModel @Inject constructor(
         cache.cardList.clear()
     }
 
-    fun startAnimation(animatedGridLayout: AnimatedGridLayout, startAnimationButton: Button) {
+    fun startAnimation(animatedGridLayout: AnimatedGridLayout) {
         animatedGridLayout.startViewAnimation(0)
-        startAnimationButton.visibility = View.GONE
+        isStartAnimationButtonVisible.set(false)
     }
 
 

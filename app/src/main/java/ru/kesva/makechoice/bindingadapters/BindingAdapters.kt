@@ -53,7 +53,8 @@ fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             action(viewHolder, direction)
-            Toast.makeText(context, "Вариант удален", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.toast_variant_deleted), Toast.LENGTH_SHORT).show()
+
         }
 
         override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
@@ -105,19 +106,31 @@ fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit
 }
 
 @BindingAdapter("app:recyclerView", "app:viewModel")
-fun FloatingActionButton.bindOnFabClickAction(recyclerView: RecyclerView, viewModel: SharedViewModel) {
+fun FloatingActionButton.bindOnFabClickAction(
+    recyclerView: RecyclerView,
+    viewModel: SharedViewModel
+) {
     setOnClickListener {
-        recyclerView.runWhenReady {
-            val holder = recyclerView.findViewHolderForAdapterPosition(
-                viewModel.adapter.itemCount - 1
-            ) as WelcomeAdapter.WelcomeViewHolder
-            holder.binding.textField.requestFocus()
-            val activity = findFragment<WelcomeFragment>().requireActivity()
-            activity.showKeyboard()
+        if (viewModel.adapter.cardList.size < 9) {
+            recyclerView.runWhenReady {
+                val holder = recyclerView.findViewHolderForAdapterPosition(
+                    viewModel.adapter.itemCount - 1
+                ) as WelcomeAdapter.WelcomeViewHolder
+                holder.binding.textField.requestFocus()
+                val activity = findFragment<WelcomeFragment>().requireActivity()
+                activity.showKeyboard()
+            }
+
+            val editTextItem = EditTextItem()
+            viewModel.adapter.cardList.add(editTextItem)
+            viewModel.adapter.notifyItemInserted(viewModel.adapter.cardList.lastIndex)
+        } else {
+            Toast.makeText(
+                context,
+                context.getString(R.string.toast_you_can_not_add_more_than_nine_elements),
+                Toast.LENGTH_LONG
+            ).show()
         }
-        val editTextItem = EditTextItem()
-        viewModel.adapter.cardList.add(editTextItem)
-        viewModel.adapter.notifyItemInserted(viewModel.adapter.cardList.lastIndex)
     }
 }
 

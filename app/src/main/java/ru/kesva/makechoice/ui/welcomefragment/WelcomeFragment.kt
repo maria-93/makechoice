@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -33,11 +32,13 @@ class WelcomeFragment : Fragment() {
         injectDependencies()
         binding = FragmentWelcomeBinding.inflate(LayoutInflater.from(parentFragment?.context))
         binding.viewModel = viewModel
+        binding.isNextButtonVisible = viewModel.isNextButtonVisible
+        binding.isProgressBarVisible = viewModel.isProgressBarVisible
         listener =
             NavController.OnDestinationChangedListener { controller, destination, arguments ->
                 if (controller.graph.startDestination == controller.currentDestination?.id) {
                     viewModel.clearCardListFromCache()
-                    binding.buttonFarther.visibility = View.VISIBLE
+                    viewModel.isNextButtonVisible.set(true)
                 }
             }
     }
@@ -81,11 +82,11 @@ class WelcomeFragment : Fragment() {
                     if (viewModel.getCardListFromCache().isNullOrEmpty()) {
                         Toast.makeText(
                             context,
-                            "Пожалуйста, добавьте свои варианты",
+                            getString(R.string.toast_please_add_your_variants),
                             Toast.LENGTH_LONG
                         ).show()
-                        binding.buttonFarther.visibility = View.VISIBLE
-                        binding.progressBar.visibility = ProgressBar.INVISIBLE
+                        viewModel.isNextButtonVisible.set(true)
+                        viewModel.isProgressBarVisible.set(false)
                     } else {
                         navController.navigate(R.id.action_welcomeFragment_to_makeChoiceFragment)
 
@@ -94,6 +95,4 @@ class WelcomeFragment : Fragment() {
             })
         }
     }
-
-
 }
