@@ -14,14 +14,14 @@ import ru.kesva.makechoice.databinding.FragmentWelcomeBinding
 import ru.kesva.makechoice.di.ViewModelFactory
 import ru.kesva.makechoice.di.subcomponents.WelcomeComponent
 import ru.kesva.makechoice.extensions.getViewModel
-import ru.kesva.makechoice.ui.viewmodel.SharedViewModel
+import ru.kesva.makechoice.ui.viewmodel.WelcomeViewModel
 import javax.inject.Inject
 
 class WelcomeFragment : Fragment() {
     private lateinit var binding: FragmentWelcomeBinding
     private lateinit var component: WelcomeComponent
     private lateinit var navController: NavController
-    private lateinit var viewModel: SharedViewModel
+    private lateinit var welcomeViewModel: WelcomeViewModel
     private lateinit var listener: NavController.OnDestinationChangedListener
 
     @Inject
@@ -31,14 +31,13 @@ class WelcomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         injectDependencies()
         binding = FragmentWelcomeBinding.inflate(LayoutInflater.from(parentFragment?.context))
-        binding.viewModel = viewModel
-        binding.isNextButtonVisible = viewModel.isNextButtonVisible
-        binding.isProgressBarVisible = viewModel.isProgressBarVisible
+        binding.welcomeViewModel = welcomeViewModel
+        binding.isNextButtonVisible = welcomeViewModel.isNextButtonVisible
+        binding.isProgressBarVisible = welcomeViewModel.isProgressBarVisible
         listener =
             NavController.OnDestinationChangedListener { controller, destination, arguments ->
                 if (controller.graph.startDestination == controller.currentDestination?.id) {
-                    viewModel.clearCardListFromCache()
-                    viewModel.isNextButtonVisible.set(true)
+                    welcomeViewModel.isNextButtonVisible.set(true)
                 }
             }
     }
@@ -48,7 +47,7 @@ class WelcomeFragment : Fragment() {
             (requireContext().applicationContext as MakeChoiceApplication).appComponent.welcomeComponent()
                 .create()
         component.provideDependenciesFor(this)
-        viewModel = getViewModel(factory, requireActivity())
+        welcomeViewModel = getViewModel(factory, requireActivity())
     }
 
 
@@ -71,26 +70,33 @@ class WelcomeFragment : Fragment() {
     }
 
     override fun onPause() {
-        super.onPause()
         navController.removeOnDestinationChangedListener(listener)
+        super.onPause()
     }
 
     private fun subscribeToEvents() {
-        with(viewModel) {
+        with(welcomeViewModel) {
             nextButtonClicked.observe(viewLifecycleOwner, {
                 it.getContentIfNotHandled()?.let {
-                    if (viewModel.getCardListFromCache().isNullOrEmpty()) {
-                        Toast.makeText(
-                            context,
-                            getString(R.string.toast_please_add_your_variants),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        viewModel.isNextButtonVisible.set(true)
-                        viewModel.isProgressBarVisible.set(false)
-                    } else {
-                        navController.navigate(R.id.action_welcomeFragment_to_makeChoiceFragment)
-
-                    }
+                    navController.navigate(R.id.action_welcomeFragment_to_makeChoiceFragment)
+                }
+            })
+            toastLiveDataCardListNullOrEmpty.observe(viewLifecycleOwner, {
+                it.getContentIfNotHandled()?.let {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_please_add_your_variants),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+            toastLiveDataCardListLessThanTwo.observe(viewLifecycleOwner, {
+                it.getContentIfNotHandled()?.let {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.toast_enter_at_least_two_variants),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             })
         }

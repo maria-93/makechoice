@@ -10,11 +10,7 @@ import javax.inject.Inject
 class WelcomeAdapter @Inject constructor(
 ) : RecyclerView.Adapter<WelcomeAdapter.WelcomeViewHolder>() {
 
-    val cardList: MutableList<EditTextItem> = mutableListOf()
-
-    fun removeAllEditTexts() {
-        cardList.clear()
-    }
+    val editTextList: MutableList<EditTextItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WelcomeViewHolder =
         WelcomeViewHolder(
@@ -26,12 +22,14 @@ class WelcomeAdapter @Inject constructor(
         )
 
     override fun onBindViewHolder(holder: WelcomeViewHolder, position: Int) {
-        holder.binding.editTextItem = cardList[position]
+        holder.binding.editTextItem = editTextList[position]
+        holder.binding.executePendingBindings()
     }
 
-    override fun getItemCount(): Int = cardList.size
+    override fun getItemCount(): Int = editTextList.size
 
     inner class WelcomeViewHolder(val binding: LayoutForRvAddVariantBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
     }
 }

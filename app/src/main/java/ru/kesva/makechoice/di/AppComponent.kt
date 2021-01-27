@@ -5,18 +5,17 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.kesva.makechoice.MakeChoiceApplication
 import ru.kesva.makechoice.data.model.Cache
-import ru.kesva.makechoice.di.modules.ApiProvidesModule
-import ru.kesva.makechoice.di.modules.AppSubComponents
-import ru.kesva.makechoice.di.modules.PhotoRepositoryProvidesModule
-import ru.kesva.makechoice.di.modules.ViewModelBindsModule
+import ru.kesva.makechoice.data.model.LocalCacheImp
+import ru.kesva.makechoice.di.modules.*
 import ru.kesva.makechoice.di.subcomponents.MainActivityComponent
 import ru.kesva.makechoice.di.subcomponents.MakeChoiceComponent
 import ru.kesva.makechoice.di.subcomponents.WelcomeComponent
 import javax.inject.Singleton
 
-@Singleton
+
 @Component(modules = [AppSubComponents::class, ApiProvidesModule::class, PhotoRepositoryProvidesModule::class,
-ViewModelBindsModule::class, ViewModelBuilderModule::class])
+WelcomeViewModelBindsModule::class, LocalCacheProvidesModule::class, MakeChoiceViewModelBindsModule::class, ViewModelBuilderModule::class])
+@Singleton
 interface AppComponent {
 
     fun provideDependenciesFor(makeChoiceApplication: MakeChoiceApplication)

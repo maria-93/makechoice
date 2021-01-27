@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableField
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,7 @@ import ru.kesva.makechoice.domain.model.Card
 import ru.kesva.makechoice.extensions.runWhenReady
 import ru.kesva.makechoice.extensions.showKeyboard
 import ru.kesva.makechoice.ui.customlayout.AnimatedGridLayout
-import ru.kesva.makechoice.ui.viewmodel.SharedViewModel
+import ru.kesva.makechoice.ui.viewmodel.WelcomeViewModel
 import ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapter
 import ru.kesva.makechoice.ui.welcomefragment.WelcomeFragment
 
@@ -53,7 +54,11 @@ fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             action(viewHolder, direction)
-            Toast.makeText(context, context.getString(R.string.toast_variant_deleted), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.toast_variant_deleted),
+                Toast.LENGTH_SHORT
+            ).show()
 
         }
 
@@ -108,10 +113,10 @@ fun RecyclerView.setDismissHelper(action: (RecyclerView.ViewHolder, Int) -> Unit
 @BindingAdapter("app:recyclerView", "app:viewModel")
 fun FloatingActionButton.bindOnFabClickAction(
     recyclerView: RecyclerView,
-    viewModel: SharedViewModel
+    viewModel: WelcomeViewModel
 ) {
     setOnClickListener {
-        if (viewModel.adapter.cardList.size < 9) {
+        if (viewModel.adapter.editTextList.size < 9) {
             recyclerView.runWhenReady {
                 val holder = recyclerView.findViewHolderForAdapterPosition(
                     viewModel.adapter.itemCount - 1
@@ -122,8 +127,8 @@ fun FloatingActionButton.bindOnFabClickAction(
             }
 
             val editTextItem = EditTextItem()
-            viewModel.adapter.cardList.add(editTextItem)
-            viewModel.adapter.notifyItemInserted(viewModel.adapter.cardList.lastIndex)
+            viewModel.adapter.editTextList.add(editTextItem)
+            viewModel.adapter.notifyItemInserted(viewModel.adapter.editTextList.lastIndex)
         } else {
             Toast.makeText(
                 context,

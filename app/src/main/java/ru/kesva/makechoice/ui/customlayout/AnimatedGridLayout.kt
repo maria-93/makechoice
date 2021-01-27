@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.widget.GridLayout
 import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
@@ -184,15 +185,15 @@ class AnimatedGridLayout : GridLayout {
         val animatorDown = createCardAnimationDown(view)
 
         // 2. прилепить на ее окончание листенер с вызовом рекурсивного метода startViewAnimation
-        val shouldStop = round == 10 && cardIndex == result
+        val shouldStop = round == 6 && cardIndex == result
         Log.d("asdf", "setUpAnimatorsForView: after shouldStop==true $cardIndex")
         if (cardIndex >= cardList.size - 1) {
             round++
             cardIndex = -1
-            if (round < 7 && oneAnimationDuration > 200) {
+            if (round < 4 && oneAnimationDuration > 200) {
                 oneAnimationDuration -= 100L
             }
-            if (round >= 7) {
+            if (round >= 4) {
                 oneAnimationDuration += 100L
             }
         }

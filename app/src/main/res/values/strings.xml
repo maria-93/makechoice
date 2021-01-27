@@ -8,4 +8,5 @@
     <string name="toast_please_add_your_variants">Пожалуйста, добавь свои варианты</string>
     <string name="toast_variant_deleted">Вариант удален</string>
     <string name="toast_you_can_not_add_more_than_nine_elements">Ты можешь добавить не больше 9 элементов</string>
+    <string name="toast_enter_at_least_two_variants">Введи хотя бы 2 варианта</string>
 </resources>

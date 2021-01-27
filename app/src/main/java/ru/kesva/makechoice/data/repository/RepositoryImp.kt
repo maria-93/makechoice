@@ -2,19 +2,18 @@ package ru.kesva.makechoice.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import ru.kesva.makechoice.data.source.remote.CustomSearchGoogleApi
-import ru.kesva.makechoice.domain.model.Card
 import ru.kesva.makechoice.domain.model.Items
-import ru.kesva.makechoice.domain.repository.PhotoRepository
+import ru.kesva.makechoice.domain.repository.Repository
 
-class PhotoRepositoryImp(
+class RepositoryImp(
     private val api: CustomSearchGoogleApi,
     private val dispatcher: CoroutineDispatcher
-) : BaseRepository(), PhotoRepository {
+) : BaseRepository(), Repository {
 
     private val key = "AIzaSyDhhbudfasaj9Nirm9rmmrEu7jb0ep6lWI"
     private val cx = "3f8ce6301b45b1e05"
 
-    override suspend fun getCard(query: String): Result<Card> =
+    override suspend fun fetchUriOnRequest(query: String): Result<String> =
         safeApiCall(dispatcher) {
             val photoResponse = api.getPhotoResponse(
                 key, cx,
@@ -23,6 +22,6 @@ class PhotoRepositoryImp(
             val itemsList: List<Items> = photoResponse.items
             val randomImageUriPicker = RandomImageUriPicker()
             val imageUri = randomImageUriPicker.getRandomImageUri(itemsList)
-            Card(query, imageUri)
+            imageUri
         }
 }
