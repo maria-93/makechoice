@@ -7,7 +7,6 @@ interface LocalCache {
     fun saveFetchedUriToMap(query: String, uri: String)
     fun getLinkForQuery(query: String): String
     fun isNeedToFetch(query: String): Boolean
-    fun isMapEmpty(): Boolean
 
 
 }

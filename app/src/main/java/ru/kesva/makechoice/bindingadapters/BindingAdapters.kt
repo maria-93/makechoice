@@ -3,14 +3,11 @@ package ru.kesva.makechoice.bindingadapters
 import android.graphics.Canvas
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableField
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.kesva.makechoice.R
 import ru.kesva.makechoice.data.model.EditTextItem
@@ -22,16 +19,6 @@ import ru.kesva.makechoice.ui.viewmodel.WelcomeViewModel
 import ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapter
 import ru.kesva.makechoice.ui.welcomefragment.WelcomeFragment
 
-
-@BindingAdapter("app:loadImage")
-fun loadImage(imageView: ImageView, imageUri: String) {
-    Log.d("asdf", "loadImage: $imageUri")
-    Glide
-        .with(imageView)
-        .load(imageUri)
-        .centerCrop()
-        .into(imageView)
-}
 
 @BindingAdapter("app:setCardListFromCache")
 fun retrieveCardListFromCache(animatedGridLayout: AnimatedGridLayout, list: List<Card>) {
@@ -138,6 +125,7 @@ fun FloatingActionButton.bindOnFabClickAction(
         }
     }
 }
+
 
 
 

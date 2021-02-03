@@ -5,11 +5,9 @@
 
     <data>
         <import type="android.view.View"/>
+
         <variable
-            name="isStartAnimationButtonVisible"
-            type="androidx.databinding.ObservableBoolean" />
-        <variable
-            name="makeChoiceViewModel"
+            name="viewModel"
             type="ru.kesva.makechoice.ui.viewmodel.MakeChoiceViewModel" />
     </data>
 
@@ -28,15 +26,36 @@
             android:layout_gravity="center"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
             android:columnCount="3"
             android:rowCount="2"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintBottom_toTopOf="@id/startAnimationButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:setCardListFromCache="@{makeChoiceViewModel.cardListFromCache}"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:setCardListFromCache="@{viewModel.cardListFromCache}"
             tools:context=".MainActivity">
 
+
+            <include
+                layout="@layout/layout_for_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1" />
+
+            <include
+                layout="@layout/layout_for_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1" />
+
+            <include
+                layout="@layout/layout_for_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1" />
 
             <include
                 layout="@layout/layout_for_card"
@@ -80,14 +99,43 @@
             android:id="@+id/startAnimationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> makeChoiceViewModel.startAnimation(animatedGridLayout)}"
+            android:onClick="@{() -> viewModel.startAnimation(animatedGridLayout)}"
             android:text="@string/make_choice"
-            android:theme="@style/NextButtonTheme"
-            android:visibility="@{isStartAnimationButtonVisible ? View.VISIBLE : View.INVISIBLE}"
+            android:theme="@style/CommonButtonTheme"
+            android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/animatedGridLayout"
             app:layout_constraintStart_toStartOf="@+id/animatedGridLayout"
             app:layout_constraintTop_toBottomOf="@+id/animatedGridLayout" />
+
+        <Button
+            android:id="@+id/playAgainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:enabled="false"
+            android:onClick="@{() -> viewModel.playAgain()}"
+            android:text="@string/button_play_again"
+            android:theme="@style/CommonButtonTheme"
+            app:layout_constraintBottom_toTopOf="@+id/startOverButton"
+            app:layout_constraintEnd_toEndOf="@+id/startOverButton"
+            app:layout_constraintStart_toStartOf="@+id/startOverButton" />
+
+        <Button
+            android:id="@+id/startOverButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:enabled="false"
+            android:onClick="@{() -> viewModel.startOver()}"
+            android:text="@string/button_start_over"
+            android:theme="@style/CommonButtonTheme"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

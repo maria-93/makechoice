@@ -3,6 +3,7 @@ package ru.kesva.makechoice.extensions
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,4 +27,12 @@ fun Activity.showKeyboard() {
     } else {
         throw UnsupportedOperationException("Can't show keyboard. Activity's window is null.")
     }
+}
+
+fun View.fadeIn() {
+    animate().alpha(1f).start()
+}
+
+fun View.fadeOut() {
+    animate().alpha(0f).start()
 }

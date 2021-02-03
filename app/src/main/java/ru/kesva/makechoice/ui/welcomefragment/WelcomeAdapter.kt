@@ -29,7 +29,5 @@ class WelcomeAdapter @Inject constructor(
     override fun getItemCount(): Int = editTextList.size
 
     inner class WelcomeViewHolder(val binding: LayoutForRvAddVariantBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-    }
+        RecyclerView.ViewHolder(binding.root)
 }

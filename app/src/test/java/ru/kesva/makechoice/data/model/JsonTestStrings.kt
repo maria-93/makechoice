@@ -1,4 +1,4 @@
-package ru.kesva.makechoice
+package ru.kesva.makechoice.data.model
 
 class JsonTestStrings {
     companion object {

@@ -1,6 +1,5 @@
 package ru.kesva.makechoice.domain.usecase
 
-import android.util.Log
 import ru.kesva.makechoice.data.model.LocalCache
 import ru.kesva.makechoice.data.repository.Result
 import ru.kesva.makechoice.domain.repository.Repository
@@ -15,7 +14,6 @@ class SaveUriToLocalCacheUseCase @Inject constructor(
         if (result is Result.Success) {
             val uri = result.value
             localCache.saveFetchedUriToMap(query, uri)
-            Log.d("New", "fetchUriOnRequest: localcache после сохранения в usecase $localCache")
         }
         return result
     }

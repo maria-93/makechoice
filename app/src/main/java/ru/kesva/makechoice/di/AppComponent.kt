@@ -5,7 +5,6 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.kesva.makechoice.MakeChoiceApplication
 import ru.kesva.makechoice.data.model.Cache
-import ru.kesva.makechoice.data.model.LocalCacheImp
 import ru.kesva.makechoice.di.modules.*
 import ru.kesva.makechoice.di.subcomponents.MainActivityComponent
 import ru.kesva.makechoice.di.subcomponents.MakeChoiceComponent

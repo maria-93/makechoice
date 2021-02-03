@@ -1,19 +1,19 @@
 package ru.kesva.makechoice.ui.customlayout
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
+import android.animation.*
 import android.content.Context
 import android.content.res.Resources
 import android.util.AttributeSet
 import android.util.Log
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.GridLayout
+import androidx.core.animation.doOnEnd
 import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_for_card.view.*
@@ -31,15 +31,10 @@ class AnimatedGridLayout : GridLayout {
         defStyleAttr
     )
 
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
+    var onAnimationEndAction: (() -> Unit)? = null
 
     val childViewList = mutableListOf<View>()
-    var oneAnimationDuration = 400L
+    private var oneAnimationDuration = 400L
 
     private var _cardList: List<Card>? = null
     private val cardList: List<Card>
@@ -222,31 +217,91 @@ class AnimatedGridLayout : GridLayout {
         val parentCenterHeight = (container.height / 2).toFloat()
         val childCenterHeight = (view.height / 2).toFloat()
         val childCenterWidth = (view.width / 2).toFloat()
-
         val x = PropertyValuesHolder.ofFloat(View.X, parentCenterWidth - childCenterWidth)
         val y = PropertyValuesHolder.ofFloat(View.Y, parentCenterHeight - childCenterHeight)
         val animator = ObjectAnimator.ofPropertyValuesHolder(view, x, y)
-        animator.duration = 1000
-        animator.startDelay = 1000
+        animator.duration = 1200
+        animator.startDelay = 1200
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 for (item in childViewList) {
                     if (item != view) {
                         val itemAnimator = ObjectAnimator.ofFloat(item, View.ALPHA, 0f)
-                        itemAnimator.duration = 800
+                        itemAnimator.duration = 400
                         itemAnimator.start()
                     } else {
-                        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.6f)
-                        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.6f)
-                        val viewAnimator =
-                            ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY)
-                        viewAnimator.duration = 800
-                        viewAnimator.start()
+                       val displayWidth = (resources.displayMetrics.widthPixels).toFloat() * 0.6f
+                        Log.d("TAG", "onAnimationEnd: displayWidth $displayWidth")
+                        val diffX = displayWidth / view.width
+                        Log.d("TAG", "onAnimationEnd: diffX $diffX")
+                        view.animate().scaleX(diffX).scaleY(diffX)
+
                     }
                 }
             }
         })
         animator.start()
+        animator.doOnEnd {
+            onAnimationEndAction?.invoke()
+        }
+    }
+
+    private fun startAnimationWinningCard(view: View) {
+        val displayHeight = resources.displayMetrics.heightPixels * 0.4
+        val  displayWidth = resources.displayMetrics.widthPixels * 0.4
+        val startingSize = Size(view.width, view.height)
+        val targetSize = Size(displayWidth.toInt(), displayHeight.toInt())
+        // возможно проблема в pivotX и pivotY. Нужно поставить их на центр экрана.
+        val evaluator =
+            TypeEvaluator<Size> { fraction, startValue, endValue ->
+                val widthValue = (startValue.width + (endValue.width - startValue.width) * fraction).toInt()
+                val heightValue = (startValue.height + (endValue.height - startValue.height) * fraction).toInt()
+                Size(widthValue, heightValue)
+            }
+
+        ValueAnimator.ofObject(evaluator, startingSize, targetSize).apply {
+            addUpdateListener { valueAnimator ->
+                val animObject = valueAnimator.animatedValue as Size
+                view.x -= ((animObject.width - view.width).toFloat() / 2)
+                view.y -= ((animObject.height - view.height).toFloat() / 2)
+                view.layoutParams.width = animObject.width
+                view.layoutParams.height = animObject.height
+                view.requestLayout()
+
+            }
+            duration = 20000
+        }.start()
+    }
+
+    /*     val width = container.width / 2
+                             val height = LayoutParams.WRAP_CONTENT
+                             val params = LayoutParams()
+                             params.width = width
+                             params.height = height
+                             view.layoutParams = params*/
+
+    /* val anim = ValueAnimator.ofInt(view.measuredWidth, container.width / 4)
+     anim.addUpdateListener { valueAnimator ->
+         val animValue = valueAnimator?.animatedValue as Int
+         val layoutParams = view.layoutParams
+         layoutParams.width = animValue
+         layoutParams.height = LayoutParams.WRAP_CONTENT
+         view.layoutParams = layoutParams
+     }
+     anim.duration = 1000
+     anim.start()*/
+
+    private fun scaleView(view: View, startScale: Float, endScale: Float) {
+        val animation: Animation = ScaleAnimation(
+            1f, 1f,
+            startScale, endScale,
+            Animation.ABSOLUTE, 2f,
+            Animation.ABSOLUTE, 2f
+        )
+        animation.fillAfter = true
+        animation.duration = 1000
+        view.startAnimation(animation)
+
     }
 
     private fun createCardAnimationUp(view: View): Animator {

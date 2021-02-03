@@ -1,6 +1,5 @@
 package ru.kesva.makechoice.ui.viewmodel
 
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,14 +12,14 @@ import ru.kesva.makechoice.data.model.Event
 import ru.kesva.makechoice.data.model.LocalCache
 import ru.kesva.makechoice.data.repository.Result
 import ru.kesva.makechoice.domain.usecase.DeleteCardFromMemoryCacheUseCase
+import ru.kesva.makechoice.domain.usecase.FetchDataUseCase
 import ru.kesva.makechoice.domain.usecase.PopulateCardListUseCase
-import ru.kesva.makechoice.domain.usecase.SaveUriToLocalCacheUseCase
 import ru.kesva.makechoice.ui.welcomefragment.WelcomeAdapter
 import javax.inject.Inject
 
 class WelcomeViewModel @Inject constructor(
     private val deleteCardFromMemoryCacheUseCase: DeleteCardFromMemoryCacheUseCase,
-    private val saveUriToLocalCacheUseCase: SaveUriToLocalCacheUseCase,
+    private val fetchDataUseCase: FetchDataUseCase,
     private val populateCardListUseCase: PopulateCardListUseCase,
     private val cache: Cache,
     private val localCache: LocalCache
@@ -69,25 +68,14 @@ class WelcomeViewModel @Inject constructor(
         }
         //сохраняем в мапу все запросы, приведенные к нижнему регистру, получаем уникальные запросы,
         //которые будут служить ключами в мапе. Значения в мапе остаются пустыми.
-
         localCache.saveQueriesToMapWithoutValues(userQueries)
 
-
-        //метод возвращает список уникальных запросов пользователя для поиска
-        val queryList = localCache.getQueriesFromMap()
-
         //Фетчим запросы-ключи из мапы и получаем к каждому из них значение - uri. Сохраняем их в мапе.
-
         viewModelScope.launch {
             isProgressBarVisible.set(true)
-            queryList.forEach { query ->
-                if (localCache.isNeedToFetch(query)) {
-                    Log.d("New", "nextButtonClicked: ")
-                    val result = saveUriToLocalCacheUseCase.fetchUriOnRequest(query)
-                    if (result !is Result.Success) {
-                        handleError(result)
-                    }
-                }
+            val result = fetchDataUseCase()
+            if (result !is Result.Success) {
+                handleError(result)
             }
         }.invokeOnCompletion {
             //в этом юзкейсе сравниваются запросы пользователя и ключи из мапы. Если запросы пользователя
@@ -109,4 +97,5 @@ class WelcomeViewModel @Inject constructor(
             else -> Result.UndefinedError
         }
     }
+
 }

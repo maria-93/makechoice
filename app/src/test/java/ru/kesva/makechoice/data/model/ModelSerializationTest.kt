@@ -1,10 +1,9 @@
-package ru.kesva.makechoice
+package ru.kesva.makechoice.data.model
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import ru.kesva.makechoice.data.model.PhotoResponse
 
 class ModelSerializationTest {
 

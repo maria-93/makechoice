@@ -3,7 +3,7 @@ package ru.kesva.makechoice.di.subcomponents
 import dagger.Subcomponent
 import ru.kesva.makechoice.ui.welcomefragment.WelcomeFragment
 
-@Subcomponent()
+@Subcomponent
 interface WelcomeComponent {
 
     @Subcomponent.Factory

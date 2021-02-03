@@ -1,11 +1,9 @@
-package ru.kesva.makechoice
+package ru.kesva.makechoice.data.repository
 
-import ru.kesva.makechoice.data.repository.ErrorResponse
 import java.lang.UnsupportedOperationException
 import kotlin.reflect.KClass
-import ru.kesva.makechoice.data.repository.Result
 
-open class BaseFakeRepository {
+open class FakeBaseRepository {
     var resultToReturn: KClass<out Result<*>>? = null
         get() {
             if (field == null) {

@@ -70,8 +70,8 @@ class WelcomeFragment : Fragment() {
     }
 
     override fun onPause() {
-        navController.removeOnDestinationChangedListener(listener)
         super.onPause()
+        navController.removeOnDestinationChangedListener(listener)
     }
 
     private fun subscribeToEvents() {

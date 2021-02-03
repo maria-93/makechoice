@@ -2,6 +2,8 @@
     <string name="app_name">Make Choice</string>
     <string name="welcome_text">Привет! Я помогу тебе сделать выбор из нескольких пунктов. Например, помогу определиться, что приготовить сегодня или надеть</string>
     <string name="button_farther">Далее</string>
+    <string name="button_play_again">Сыграть еще раз</string>
+    <string name="button_start_over">Начать заново</string>
     <string name="add_variants">Добавь свои варианты \n (не больше 9):</string>
     <string name="hint">Вариант</string>
     <string name="make_choice">Сделать выбор</string>

@@ -5,7 +5,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.kesva.makechoice.di.ViewModelKey
-import ru.kesva.makechoice.ui.viewmodel.MakeChoiceViewModel
 import ru.kesva.makechoice.ui.viewmodel.WelcomeViewModel
 
 @Module
@@ -13,6 +12,6 @@ abstract class WelcomeViewModelBindsModule {
     @Binds
     @IntoMap
     @ViewModelKey(WelcomeViewModel::class)
-    abstract fun bindMakeChoiceViewModel(viewModel: WelcomeViewModel): ViewModel
+    abstract fun bindWelcomeViewModel(viewModel: WelcomeViewModel): ViewModel
 
 }
