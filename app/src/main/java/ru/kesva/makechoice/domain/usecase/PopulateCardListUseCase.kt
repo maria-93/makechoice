@@ -1,6 +1,5 @@
 package ru.kesva.makechoice.domain.usecase
 
-import android.util.Log
 import ru.kesva.makechoice.data.model.Cache
 import ru.kesva.makechoice.data.model.LocalCache
 import ru.kesva.makechoice.domain.model.Card
@@ -15,10 +14,6 @@ class PopulateCardListUseCase @Inject constructor(
         userQueries.forEach { userQuery ->
             val link = localCache.getLinkForQuery(userQuery)
             val card = Card(userQuery, link)
-           Log.d(
-                "New",
-                "query and link that was saved to card: userQuery ${card.query} + link ${card.uri}"
-            )
             cache.cardList.add(card)
         }
     }

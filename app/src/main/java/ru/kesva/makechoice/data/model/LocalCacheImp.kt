@@ -21,7 +21,6 @@ class LocalCacheImp : LocalCache {
                 localCacheMap[query.toLowerCase(Locale.ROOT)] = placeholderLink
             }
         }
-        //Log.d("New", "saveQueriesToMapWithoutVal localCacheMap size: ${localCacheMap.size}")
     }
 
     override fun getQueriesFromMap(): List<String> {
@@ -30,13 +29,11 @@ class LocalCacheImp : LocalCache {
             val query = entry.key
             queryList.add(query)
         }
-        //Log.d("New", "getQueriesFromMap: $queryList")
         return queryList
     }
 
     override fun saveFetchedUriToMap(query: String, uri: String) {
         localCacheMap[query] = uri
-        //Log.d("New", "saveFetchedUriToMap: размер мапы ${localCacheMap.size}")
     }
 
     override fun getLinkForQuery(query: String): String {
@@ -46,7 +43,6 @@ class LocalCacheImp : LocalCache {
     override fun isNeedToFetch(query: String): Boolean {
         val key = query.toLowerCase(Locale.ROOT)
         val value = localCacheMap.getValue(key)
-        //Log.d("New", "isNeedToFetch: value $value")
         return value == placeholderLink
     }
 

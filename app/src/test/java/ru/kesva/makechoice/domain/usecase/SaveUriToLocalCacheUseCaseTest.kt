@@ -32,30 +32,29 @@ class SaveUriToLocalCacheUseCaseTest {
         runBlockingTest {
             useCase.fetchUriOnRequest(query)
         }
-        assertThat(localCache.getQueriesFromMap()).isEqualTo(1)
-
-        /*assertThat(card.query).isEqualTo(query)
-        assertThat(card.uri).isEqualTo(fakeRepository.uri)*/
+        assertThat(localCache.getQueriesFromMap().size).isEqualTo(1)
+        assertThat(localCache.getQueriesFromMap()[0]).isEqualTo("Кошка")
+        assertThat(localCache.getLinkForQuery("Кошка")).isNotNull()
     }
 
     @Test
-    fun getCardFromRepoAndSaveItToCache_savingUriFailedCauseHttpError() {
+    fun getUriFromRepoAndSaveItToLocalCache_savingUriFailedCauseHttpError() {
         fakeRepository.resultToReturn = Result.HttpError::class
         val query = "Кот"
         runBlockingTest {
             useCase.fetchUriOnRequest(query)
         }
-        assertThat(localCache.getQueriesFromMap()).isEqualTo(0)
+        assertThat(localCache.getQueriesFromMap().size).isEqualTo(0)
     }
 
     @Test
-    fun getCardFromRepoAndSaveItToCache_savingUriFailedCauseNetworkError() {
+    fun getUriFromRepoAndSaveItToLocalCache_savingUriFailedCauseNetworkError() {
         fakeRepository.resultToReturn = Result.NetworkError::class
-        val query = "Котенок"
+        val query = "Кот"
         runBlockingTest {
             useCase.fetchUriOnRequest(query)
         }
-        assertThat(localCache.getQueriesFromMap()).isEqualTo(0)
+        assertThat(localCache.getQueriesFromMap().size).isEqualTo(0)
     }
 
 }
