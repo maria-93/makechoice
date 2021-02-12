@@ -35,6 +35,17 @@ class MakeChoiceFragment : Fragment() {
         injectDependencies()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //если activity или application были уничтожены системой Android из-за нехватки памяти,
+        // а пользователь находился на этом экране, то пересоздаем activity, чтобы приложение
+        //не упало из-за NPE, т.к. список карточек пользователя будет пустым
+        if (makeChoiceViewModel.getCardListFromCache().isNullOrEmpty()) {
+            createNewActivity()
+            requireActivity().finish()
+        }
+    }
+
     private fun injectDependencies() {
         component =
             (requireContext().applicationContext as MakeChoiceApplication)
