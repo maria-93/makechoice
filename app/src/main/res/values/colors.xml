@@ -5,7 +5,5 @@
     <color name="colorAccent">#b34953</color>
     <color name="colorOnSecondary">#b0edde</color>
     <color name="colorAccentLight">#FF3B6C</color>
-    <color name="gradientStarts">#FBE8EE</color>
-    <color name="gradientEnds">#E8F8F4</color>
 </resources>
 

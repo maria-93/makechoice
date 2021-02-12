@@ -1,6 +1,5 @@
 package ru.kesva.makechoice.data.model
 
-import android.util.Log
 import java.util.*
 
 class LocalCacheImp : LocalCache {

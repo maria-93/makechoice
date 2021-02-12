@@ -246,33 +246,6 @@ class AnimatedGridLayout : GridLayout {
         }
     }
 
-    private fun startAnimationWinningCard(view: View) {
-        val displayHeight = resources.displayMetrics.heightPixels * 0.4
-        val  displayWidth = resources.displayMetrics.widthPixels * 0.4
-        val startingSize = Size(view.width, view.height)
-        val targetSize = Size(displayWidth.toInt(), displayHeight.toInt())
-        // возможно проблема в pivotX и pivotY. Нужно поставить их на центр экрана.
-        val evaluator =
-            TypeEvaluator<Size> { fraction, startValue, endValue ->
-                val widthValue = (startValue.width + (endValue.width - startValue.width) * fraction).toInt()
-                val heightValue = (startValue.height + (endValue.height - startValue.height) * fraction).toInt()
-                Size(widthValue, heightValue)
-            }
-
-        ValueAnimator.ofObject(evaluator, startingSize, targetSize).apply {
-            addUpdateListener { valueAnimator ->
-                val animObject = valueAnimator.animatedValue as Size
-                view.x -= ((animObject.width - view.width).toFloat() / 2)
-                view.y -= ((animObject.height - view.height).toFloat() / 2)
-                view.layoutParams.width = animObject.width
-                view.layoutParams.height = animObject.height
-                view.requestLayout()
-
-            }
-            duration = 20000
-        }.start()
-    }
-
     /*     val width = container.width / 2
                              val height = LayoutParams.WRAP_CONTENT
                              val params = LayoutParams()
@@ -290,19 +263,6 @@ class AnimatedGridLayout : GridLayout {
      }
      anim.duration = 1000
      anim.start()*/
-
-    private fun scaleView(view: View, startScale: Float, endScale: Float) {
-        val animation: Animation = ScaleAnimation(
-            1f, 1f,
-            startScale, endScale,
-            Animation.ABSOLUTE, 2f,
-            Animation.ABSOLUTE, 2f
-        )
-        animation.fillAfter = true
-        animation.duration = 1000
-        view.startAnimation(animation)
-
-    }
 
     private fun createCardAnimationUp(view: View): Animator {
         val scaleXUp = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.4f)

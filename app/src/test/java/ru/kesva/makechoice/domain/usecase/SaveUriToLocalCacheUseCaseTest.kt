@@ -5,10 +5,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
-import ru.kesva.makechoice.data.repository.FakeRepository
 import ru.kesva.makechoice.data.model.LocalCache
 import ru.kesva.makechoice.data.model.LocalCacheImp
+import ru.kesva.makechoice.data.repository.FakeRepository
 import ru.kesva.makechoice.data.repository.Result
 
 @ExperimentalCoroutinesApi
