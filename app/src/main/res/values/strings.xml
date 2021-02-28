@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Make Choice</string>
+    <string name="app_name">Сделай выбор</string>
     <string name="welcome_text">Привет! Я помогу тебе сделать выбор из нескольких пунктов. Например, помогу определиться, что приготовить сегодня или надеть</string>
     <string name="button_farther">Далее</string>
     <string name="button_play_again">Сыграть еще раз</string>
