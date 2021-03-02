@@ -11,10 +11,10 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 import ru.kesva.makechoice.data.model.PexelsResponse
 
-interface PexelsSearchPhotoApi {
+interface PexelsApi {
     companion object {
         private const val apiBaseUrl = "https://api.pexels.com/"
-        fun create(): PexelsSearchPhotoApi {
+        fun create(): PexelsApi {
             val logging = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
             val httpClient = OkHttpClient.Builder()
                 .addInterceptor(logging)
@@ -27,7 +27,7 @@ interface PexelsSearchPhotoApi {
                 .client(httpClient)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
-            return retrofit.create(PexelsSearchPhotoApi::class.java)
+            return retrofit.create(PexelsApi::class.java)
         }
     }
 
