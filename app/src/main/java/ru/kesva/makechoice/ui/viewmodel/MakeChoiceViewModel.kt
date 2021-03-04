@@ -29,11 +29,7 @@ class MakeChoiceViewModel @Inject constructor(private val cache: Cache) : ViewMo
         return cache.cardList
     }
 
-    fun playAgain() {
-        _playAgainButtonClicked.value = Event(Unit)
-    }
-
-    fun startOver() {
+    fun createNewList() {
         _startOverButtonClicked.value = Event(Unit)
     }
 

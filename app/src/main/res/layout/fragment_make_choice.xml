@@ -19,6 +19,18 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            app:title="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:titleTextColor="?attr/colorOnSurface"
+            app:navigationIcon="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <ru.kesva.makechoice.ui.customlayout.AnimatedGridLayout
             android:id="@+id/animatedGridLayout"
             android:layout_width="match_parent"
@@ -109,33 +121,21 @@
             app:layout_constraintTop_toBottomOf="@+id/animatedGridLayout" />
 
         <Button
-            android:id="@+id/playAgainButton"
+            android:id="@+id/newListButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0"
             android:enabled="false"
-            android:onClick="@{() -> viewModel.playAgain()}"
-            android:text="@string/button_play_again"
-            android:theme="@style/CommonButtonTheme"
-            app:layout_constraintBottom_toTopOf="@+id/startOverButton"
-            app:layout_constraintEnd_toEndOf="@+id/startOverButton"
-            app:layout_constraintStart_toStartOf="@+id/startOverButton" />
-
-        <Button
-            android:id="@+id/startOverButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:enabled="false"
-            android:onClick="@{() -> viewModel.startOver()}"
-            android:text="@string/button_start_over"
+            android:onClick="@{() -> viewModel.createNewList()}"
+            android:text="@string/button_new_list"
             android:theme="@style/CommonButtonTheme"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/startAnimationButton"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

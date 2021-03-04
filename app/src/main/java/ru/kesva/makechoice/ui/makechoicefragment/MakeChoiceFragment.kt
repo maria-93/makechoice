@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import ru.kesva.makechoice.MainActivity
 import ru.kesva.makechoice.MakeChoiceApplication
@@ -66,10 +67,8 @@ class MakeChoiceFragment : Fragment() {
     }
 
     private fun onAnimationFinished() {
-        binding.playAgainButton.fadeIn()
-        binding.playAgainButton.isEnabled = true
-        binding.startOverButton.fadeIn()
-        binding.startOverButton.isEnabled = true
+        binding.newListButton.fadeIn()
+        binding.newListButton.isEnabled = true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,6 +76,10 @@ class MakeChoiceFragment : Fragment() {
         navController = NavHostFragment.findNavController(this)
         subscribeToEvents()
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
+
     }
 
     private fun subscribeToEvents() {
