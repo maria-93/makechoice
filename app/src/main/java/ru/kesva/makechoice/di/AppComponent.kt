@@ -12,7 +12,7 @@ import ru.kesva.makechoice.di.subcomponents.WelcomeComponent
 import javax.inject.Singleton
 
 
-@Component(modules = [AppSubComponents::class, ApiProvidesModule::class, PhotoRepositoryProvidesModule::class,
+@Component(modules = [AppSubComponents::class, PexelsApiProvidesModule::class, RepositoryProvidesModule::class,
 WelcomeViewModelBindsModule::class, LocalCacheProvidesModule::class, MakeChoiceViewModelBindsModule::class, ViewModelBuilderModule::class])
 @Singleton
 interface AppComponent {

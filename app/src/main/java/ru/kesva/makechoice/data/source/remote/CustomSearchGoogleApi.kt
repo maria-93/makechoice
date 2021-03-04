@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.kesva.makechoice.data.model.PhotoResponse
+import ru.kesva.makechoice.data.model.CustomSearchResponse
 
 interface CustomSearchGoogleApi {
     companion object {
@@ -32,7 +32,7 @@ interface CustomSearchGoogleApi {
     }
 
     @GET("/customsearch/v1")
-    suspend fun getPhotoResponse(
+    suspend fun getResponse(
         @Query("key") key: String,
         @Query("cx") cx: String,
         @Query("searchType") searchType: String,
@@ -40,5 +40,5 @@ interface CustomSearchGoogleApi {
         @Query("hl") language: String,
         @Query("imgType") imgType: String,
         @Query("q") query: String
-    ): PhotoResponse
+    ): CustomSearchResponse
 }

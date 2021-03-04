@@ -10,7 +10,7 @@ class SaveUriToLocalCacheUseCase @Inject constructor(
     private val localCache: LocalCache
 ) {
     suspend fun fetchUriOnRequest(query: String): Result<*> {
-        val result = repository.fetchUriOnRequest(query)
+        val result = repository.fetchUriOnRequest(query, "#b51630")
         if (result is Result.Success) {
             val uri = result.value
             localCache.saveFetchedUriToMap(query, uri)

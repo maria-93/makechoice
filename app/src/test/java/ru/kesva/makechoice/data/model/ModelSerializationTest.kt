@@ -15,7 +15,7 @@ class ModelSerializationTest {
 
     @Test
     fun jsonToPhotoResponseTest_stringCreatedCorrectly() {
-        val cardAdapter = converter.adapter(PhotoResponse::class.java)
+        val cardAdapter = converter.adapter(CustomSearchResponse::class.java)
         val photoResponse = cardAdapter.fromJson(JsonTestStrings.responseJsonString)!!
         assertThat(photoResponse.items.last().image.imageUri).isEqualTo(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv7jgdjvvfDihabC7KdMMo7F5BG892do3BbKkCFCgfKEA1s7usfi8PZA&s"

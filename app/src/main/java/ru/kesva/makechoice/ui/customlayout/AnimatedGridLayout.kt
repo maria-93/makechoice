@@ -1,21 +1,21 @@
 package ru.kesva.makechoice.ui.customlayout
 
-import android.animation.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.content.res.Resources
 import android.util.AttributeSet
 import android.util.Log
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 import android.widget.GridLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.marginLeft
-import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_for_card.view.*
 import ru.kesva.makechoice.R
 import ru.kesva.makechoice.domain.model.Card
@@ -97,10 +97,11 @@ class AnimatedGridLayout : GridLayout {
             dpToPx(4).toInt()
         )
         view.textForCard.text = card.query
-        Glide
+       /* Glide
             .with(this)
             .load(card.uri)
-            .into(view.imageForCard)
+            .into(view.imageForCard)*/
+        Picasso.with(context).load(card.uri).placeholder(R.drawable.placeholder).into(view.imageForCard)
         view.layoutParams = params
         return view
     }
@@ -245,24 +246,6 @@ class AnimatedGridLayout : GridLayout {
             onAnimationEndAction?.invoke()
         }
     }
-
-    /*     val width = container.width / 2
-                             val height = LayoutParams.WRAP_CONTENT
-                             val params = LayoutParams()
-                             params.width = width
-                             params.height = height
-                             view.layoutParams = params*/
-
-    /* val anim = ValueAnimator.ofInt(view.measuredWidth, container.width / 4)
-     anim.addUpdateListener { valueAnimator ->
-         val animValue = valueAnimator?.animatedValue as Int
-         val layoutParams = view.layoutParams
-         layoutParams.width = animValue
-         layoutParams.height = LayoutParams.WRAP_CONTENT
-         view.layoutParams = layoutParams
-     }
-     anim.duration = 1000
-     anim.start()*/
 
     private fun createCardAnimationUp(view: View): Animator {
         val scaleXUp = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.4f)
