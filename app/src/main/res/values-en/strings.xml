@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Make a choice</string>
-    <string name="welcome_text">Hi! I will help you make a choice from several points.
-        For example, I can help you decide what to cook or wear today.</string>
-    <string name="button_farther">Farther</string>
-    <string name="button_play_again">Play again</string>
-    <string name="button_start_over">Start over again</string>
+    <string name="welcome_text">Hi! I will help you to make a choice from several points. For example, I can help you to decide what to cook or to wear today.</string>
+    <string name="button_next">Next</string>
+    <string name="button_new_list">Create a new list</string>
     <string name="add_variants">Add your variants \n (maximum 9):</string>
     <string name="hint">Variant</string>
     <string name="make_choice">Make a choice</string>
     <string name="toast_please_add_your_variants">Please, add your variants</string>
-    <string name="toast_variant_deleted">The variant was deleted</string>
+    <string name="toast_variant_deleted">The variant is removed</string>
     <string name="toast_you_can_not_add_more_than_nine_elements">You can add up to 9 items</string>
     <string name="toast_enter_at_least_two_variants">Enter at least 2 variants</string>
 </resources>

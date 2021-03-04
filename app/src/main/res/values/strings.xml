@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Сделай выбор</string>
     <string name="welcome_text">Привет! Я помогу тебе сделать выбор из нескольких пунктов. Например, помогу определиться, что приготовить сегодня или надеть</string>
-    <string name="button_farther">Далее</string>
-    <string name="button_play_again">Сыграть еще раз</string>
-    <string name="button_start_over">Начать заново</string>
+    <string name="button_next">Далее</string>
+    <string name="button_new_list">Новый список</string>
     <string name="add_variants">Добавь свои варианты \n (не больше 9):</string>
     <string name="hint">Вариант</string>
     <string name="make_choice">Сделать выбор</string>
@@ -11,4 +10,6 @@
     <string name="toast_variant_deleted">Вариант удален</string>
     <string name="toast_you_can_not_add_more_than_nine_elements">Ты можешь добавить не больше 9 элементов</string>
     <string name="toast_enter_at_least_two_variants">Введи хотя бы 2 варианта</string>
+
+
 </resources>
