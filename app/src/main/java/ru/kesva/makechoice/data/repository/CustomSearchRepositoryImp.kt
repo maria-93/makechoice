@@ -13,7 +13,7 @@ class CustomSearchRepositoryImp(
     private val key = "AIzaSyDhhbudfasaj9Nirm9rmmrEu7jb0ep6lWI"
     private val cx = "3f8ce6301b45b1e05"
 
-    override suspend fun fetchUriOnRequest(query: String, color: String): Result<String> =
+    override suspend fun fetchUriOnRequest(query: String): Result<String> =
         safeApiCall(dispatcher) {
             val response = api.getResponse(
                 key, cx,

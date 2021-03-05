@@ -35,8 +35,7 @@ interface PexelsApi {
     suspend fun getPhotoResponse(
         @Header("Authorization") key: String,
         @Query("locale") locale: String,
-        @Query("query") query: String,
-        @Query("color") color: String
+        @Query("query") query: String
     ): PexelsResponse
 
 }

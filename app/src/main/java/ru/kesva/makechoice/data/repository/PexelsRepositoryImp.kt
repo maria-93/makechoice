@@ -13,10 +13,10 @@ class PexelsRepositoryImp(
 
     private val key = "563492ad6f917000010000016ca31ac031d546758e7f880b07d48730"
 
-    override suspend fun fetchUriOnRequest(query: String, color: String): Result<String> =
+    override suspend fun fetchUriOnRequest(query: String): Result<String> =
         safeApiCall(dispatcher) {
             val photoResponse = api.getPhotoResponse(
-                key, "ru-RU", query, color
+                key, "ru-RU", query
             )
             val photos: List<Photo> = photoResponse.photos
             val randomImageUriPicker = RandomImageUriPicker()
