@@ -3,9 +3,16 @@ package ru.kesva.makechoice.ui.makechoicefragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Annotation
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.SpannedString
+import android.text.method.LinkMovementMethod
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -78,6 +85,25 @@ class MakeChoiceFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
+        }
+        val fullText = getText(R.string.photos_by_pexels) as SpannedString
+        val spannableString = SpannableString(fullText)
+        val annotations = fullText.getSpans(0, fullText.length, Annotation::class.java)
+        annotations?.find { it.value =="pexels_link" }?.let {
+            spannableString.apply {
+                setSpan(
+                    ForegroundColorSpan(
+                    ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)),
+                    fullText.getSpanStart(it),
+                    fullText.getSpanEnd(it),
+                    0
+                )
+            }
+        }
+
+        binding.pexelsLink.apply {
+            text = spannableString
+            movementMethod = LinkMovementMethod.getInstance()
         }
 
     }
