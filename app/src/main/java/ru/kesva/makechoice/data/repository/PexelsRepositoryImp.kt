@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import ru.kesva.makechoice.data.source.remote.PexelsApi
 import ru.kesva.makechoice.domain.model.Photo
 import ru.kesva.makechoice.domain.repository.Repository
+import java.util.*
 
 class PexelsRepositoryImp(
     private val api: PexelsApi,
@@ -15,8 +16,11 @@ class PexelsRepositoryImp(
 
     override suspend fun fetchUriOnRequest(query: String): Result<String> =
         safeApiCall(dispatcher) {
+            val language = Locale.getDefault().language
+            val country = Locale.getDefault().country
+            val locale = "$language-$country"
             val photoResponse = api.getPhotoResponse(
-                key, "ru-RU", query
+                key, locale, query
             )
             val photos: List<Photo> = photoResponse.photos
             val randomImageUriPicker = RandomImageUriPicker()
