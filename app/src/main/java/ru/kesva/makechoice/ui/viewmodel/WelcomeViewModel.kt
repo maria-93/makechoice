@@ -33,6 +33,10 @@ class WelcomeViewModel @Inject constructor(
     private val _toastLiveDataCardListLessThanTwo: MutableLiveData<Event<Unit>> = MutableLiveData()
     val toastLiveDataCardListLessThanTwo: LiveData<Event<Unit>> = _toastLiveDataCardListLessThanTwo
 
+    private val _toastNetworkError = MutableLiveData<Event<Unit>>()
+    val toastNetworkError: LiveData<Event<Unit>>
+        get() = _toastNetworkError
+
     val isNextButtonVisible = ObservableBoolean(true)
     val isProgressBarVisible = ObservableBoolean(false)
 
@@ -91,6 +95,7 @@ class WelcomeViewModel @Inject constructor(
     private fun <T> handleError(result: Result<T>) {
         when (result) {
             is Result.NetworkError -> {
+                _toastNetworkError.value = Event(Unit)
             }
             is Result.HttpError -> {
             }
