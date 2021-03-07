@@ -12,4 +12,5 @@
     <string name="toast_you_can_not_add_more_than_nine_elements">You can add up to 9 items</string>
     <string name="toast_enter_at_least_two_variants">Enter at least 2 variants</string>
     <string name="photos_by_pexels">Photos provided by <annotation type="pexels_link"><a href="https://www.pexels.com/">Pexels</a></annotation></string>
+    <string name="toast_check_internet_connection">Please check your internet connection</string>
 </resources>

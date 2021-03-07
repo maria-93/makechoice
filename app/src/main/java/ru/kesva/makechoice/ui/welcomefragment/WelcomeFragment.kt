@@ -99,6 +99,14 @@ class WelcomeFragment : Fragment() {
                     ).show()
                 }
             })
+            toastNetworkError.observe(viewLifecycleOwner, {
+                it.getContentIfNotHandled()?.let {
+                    Toast.makeText(
+                        context, getString(R.string.toast_check_internet_connection),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
         }
     }
 }
