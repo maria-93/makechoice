@@ -1,5 +1,6 @@
 package ru.kesva.makechoice.ui.viewmodel
 
+import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import okhttp3.internal.filterList
 import ru.kesva.makechoice.data.model.Cache
 import ru.kesva.makechoice.data.model.Event
 import ru.kesva.makechoice.data.model.LocalCache
@@ -34,8 +36,7 @@ class WelcomeViewModel @Inject constructor(
     val toastLiveDataCardListLessThanTwo: LiveData<Event<Unit>> = _toastLiveDataCardListLessThanTwo
 
     private val _toastNetworkError = MutableLiveData<Event<Unit>>()
-    val toastNetworkError: LiveData<Event<Unit>>
-        get() = _toastNetworkError
+    val toastNetworkError: LiveData<Event<Unit>> = _toastNetworkError
 
     val isNextButtonVisible = ObservableBoolean(true)
     val isProgressBarVisible = ObservableBoolean(false)
@@ -45,10 +46,11 @@ class WelcomeViewModel @Inject constructor(
     val action: (RecyclerView.ViewHolder, Int) -> Unit = { viewHolder, _ ->
         if (adapter.editTextList.isNotEmpty()) {
             adapter.editTextList.removeAt(viewHolder.adapterPosition)
-            if (cache.cardList.isNotEmpty()) {
+            adapter.notifyDataSetChanged()
+
+            if (viewHolder.adapterPosition >= 0) {
                 deleteCardFromMemoryCacheUseCase(viewHolder.adapterPosition)
             }
-            adapter.notifyDataSetChanged()
         }
     }
 
