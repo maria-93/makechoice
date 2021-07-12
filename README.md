@@ -8,3 +8,4 @@ It is very easy to start using the application. Enter each option on its own lin
 ![Удаляй лишнее свайпом](https://github.com/maria-93/makechoice/raw/master/MC_3.png)
 ![Начать выбор](https://github.com/maria-93/makechoice/raw/master/MC_4.png)
 ![Победитель выбран](https://github.com/maria-93/makechoice/raw/master/MC_5.png)
+![Гиф](https://github.com/maria-93/makechoice/raw/master/gif.gif)
